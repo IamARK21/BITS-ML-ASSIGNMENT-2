@@ -22,14 +22,15 @@ Ten properties are measured for each nucleus: radius, texture, perimeter, area, 
 
 **Train/test split.** 80/20 stratified split with `random_state=42`: 455 training rows and 114 test rows (72 benign, 42 malignant). The test rows are saved as [data/test_data.csv](data/test_data.csv) for uploading to the app.
 
-## c. GitHub Repository Link
+## c. GitHub repository link
 
-- **Repository:** <https://github.com/IamARK21/BITS-ML-ASSIGNMENT-2>
-- **Live Streamlit app:** <https://bits-ml-assignment-2-8bqdeq9vlwnrpmq7kccc45.streamlit.app/>
+
+- **Repository:** `https://github.com/IamARK21/BITS-ML-ASSIGNMENT-2`
+- **Live Streamlit app:** `https://bits-ml-assignment-2-8bqdeq9vlwnrpmq7kccc45.streamlit.app/`
 
 ## d. Models used and evaluation
 
-### i) Models used and comparison table
+### i. Models used and comparison table
 
 All five models are trained on the same training split. Each one's hyper-parameters are tuned with 5-fold stratified cross-validation (scored on F1) on the **training data only**. Each model is then evaluated once on the untouched test set.
 
@@ -74,7 +75,7 @@ Metric definitions:
 | Naive Bayes | `var_smoothing=1e-9` | 0.9208 | 72 | 0 | 7 | 35 | 7 |
 | Support Vector Machine | `C=10, gamma=0.01` (RBF) | 0.9699 | 72 | 0 | 2 | 40 | 2 |
 
-### ii) Observations on the performance of each model on the chosen dataset
+### ii. Observations on the performance of each model
 
 | ML Model Name | Observation about model performance |
 |---|---|
@@ -83,7 +84,7 @@ Metric definitions:
 | KNN | Accuracy 0.9386 and MCC 0.8688, with 6 missed malignancies and 1 false alarm. Cross-validation chose `k=3`, which had the second-best CV F1 (0.9668), but test F1 fell to 0.9114. That is the largest CV-to-test drop of any model, and typical of a small, high-variance neighbourhood. With k=3 the predicted probability can only be 0, ⅓, ⅔ or 1, which caps AUC (0.9825). Distances are also dominated by redundant features: radius, perimeter and area are almost perfectly correlated (r = 0.97–0.998), so tumour size is effectively counted several times. |
 | Naive Bayes | Perfect precision (1.0000, no false alarms) but recall of only 0.8333: 7 of 42 malignant tumours missed, tied for worst. Yet its AUC is high (0.9934), so it ranks cases well but its 0.5 decision threshold is badly placed. A lower threshold would catch more cancers. This matches its core assumption failing on this data: the size features are strongly correlated (r ≈ 0.97–0.998) but are treated as independent evidence, which distorts the probabilities. It also had the lowest CV F1 (0.9208). |
 | Support Vector Machine | Best model on every metric: accuracy 0.9825, recall 0.9524, F1 0.9756, MCC 0.9626. It ties Logistic Regression on AUC (0.9960) and Naive Bayes on precision (1.0000). Only 2 errors on the test set, both missed malignancies, and no false alarms. It also had the best CV F1 (0.9699), so its lead holds across folds and isn't an artefact of one split. The tuned RBF kernel (`C=10`, `gamma=0.01`, about a third of scikit-learn's default gamma for 30 standardised features) gives a smooth maximum-margin boundary that suits these well-separated, scaled features. |
-| **Overall, Winner for your dataset?** | **Support Vector Machine.** It is best or tied-best on all six metrics and has the best cross-validated F1. Ranking by MCC: SVM (0.9626) > Logistic Regression (0.9245) > Naive Bayes (0.8715) > KNN (0.8688) > Decision Tree (0.8504). Almost every error across the five models is a missed cancer (25 false negatives against 3 false positives), and precision is at least 0.97 everywhere. So recall (0.83–0.95) is what separates the models, and for a diagnostic aid a missed malignancy costs far more than a false alarm. The SVM has the highest recall (0.9524). The test set is small (114 rows, 42 malignant): one error moves accuracy by 0.9 points and one missed cancer moves recall by 2.4 points. KNN (7 errors), Naive Bayes (7) and the Decision Tree (8) are within one misclassification of each other, so their relative order is not meaningful. |
+| **Overall, winner for this dataset** | **Support Vector Machine.** It is best or tied-best on all six metrics and has the best cross-validated F1. Ranking by MCC: SVM (0.9626) > Logistic Regression (0.9245) > Naive Bayes (0.8715) > KNN (0.8688) > Decision Tree (0.8504). Almost every error across the five models is a missed cancer (25 false negatives against 3 false positives), and precision is at least 0.97 everywhere. So recall (0.83–0.95) is what separates the models, and for a diagnostic aid a missed malignancy costs far more than a false alarm. The SVM has the highest recall (0.9524). The test set is small (114 rows, 42 malignant): one error moves accuracy by 0.9 points and one missed cancer moves recall by 2.4 points. KNN (7 errors), Naive Bayes (7) and the Decision Tree (8) are within one misclassification of each other, so their relative order is not meaningful. |
 
 ## Streamlit app
 
