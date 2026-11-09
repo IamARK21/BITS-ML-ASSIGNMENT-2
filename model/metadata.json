@@ -1,0 +1,59 @@
+{
+  "sklearn_version": "1.6.1",
+  "versions": {
+    "python": "3.13.18",
+    "scikit-learn": "1.6.1",
+    "numpy": "2.4.6",
+    "pandas": "2.2.3",
+    "joblib": "1.6.0"
+  },
+  "dataset": "Breast Cancer Wisconsin (Diagnostic) - UCI Machine Learning Repository",
+  "n_instances": 569,
+  "n_features": 30,
+  "class_counts": {
+    "Benign": 357,
+    "Malignant": 212
+  },
+  "test_size": 0.2,
+  "random_state": 42,
+  "n_train": 455,
+  "n_test": 114,
+  "cv_folds": 5,
+  "cv_scoring": "f1",
+  "models": {
+    "Logistic Regression": {
+      "best_params": {
+        "C": 1
+      },
+      "cv_f1": 0.9643
+    },
+    "Decision Tree": {
+      "best_params": {
+        "criterion": "entropy",
+        "max_depth": 6,
+        "min_samples_leaf": 1
+      },
+      "cv_f1": 0.9345
+    },
+    "K-Nearest Neighbors": {
+      "best_params": {
+        "n_neighbors": 3,
+        "weights": "uniform"
+      },
+      "cv_f1": 0.9668
+    },
+    "Naive Bayes (Gaussian)": {
+      "best_params": {
+        "var_smoothing": 1e-09
+      },
+      "cv_f1": 0.9208
+    },
+    "Support Vector Machine": {
+      "best_params": {
+        "C": 10,
+        "gamma": 0.01
+      },
+      "cv_f1": 0.9699
+    }
+  }
+}
