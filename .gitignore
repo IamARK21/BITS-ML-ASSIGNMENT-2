@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+colab_upload.zip
+trained_artifacts.zip
